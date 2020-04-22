@@ -1,0 +1,69 @@
+
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="en"
+      layout:decorate="~{user/layout/main}">
+<body>
+<div layout:fragment="content">
+
+    <div class="row col-md-12 " style="margin-top: 12.5%">
+
+        <div style="margin: auto">
+            <div class="box-border-custom">
+                <h4 class="text-center">Login</h4>
+                <form class="col-md-12" onsubmit="return validate()" action="/login" method="post">
+                    <div class="form-group row">
+                        <label for="j_username" class="col-sm-12 col-form-label">User</label>
+                        <div class="col-sm-12">
+                            <input type="text" name="username" class="form-control" id="j_username">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="j_password" class="col-sm-12 col-form-label">Password</label>
+                        <div class="col-sm-12">
+                            <input type="password" name="password" class="form-control" id="j_password">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+
+                    <div th:unless="${#request.getParameter('error') == null}">
+
+                        <div class="form-group row">
+                            <div class="col-sm-10">
+                                <span style="color: red"> Incorrect username and password </span>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
+<script>
+    function validate() {
+        var $user = $('#j_username');
+        if ($user.val().trim() == "") {
+            alert("Please enter your user name.\n");
+            return false;
+        }
+        if ($("#j_password").val().trim() == "") {
+            alert("Please enter your password.\n");
+            return false;
+        }
+        return true;
+    }
+
+</script>

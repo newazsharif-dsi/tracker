@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="en"
+      layout:decorate="~{user/layout/main}">
+<body>
+<div layout:fragment="content">
+
+    <div class="row" style="margin: 10px;">
+
+        <div class=" box-size box-border-custom col-md-6">
+            <h4 class="text-center"  th:text="${employee.id == null} ? 'Create Employee' : 'Update Employee'" />
+
+            <form class="col-md-12" onsubmit="return validate()" th:action="@{/employee/create}" th:object="${employee}" method="post">
+                <input th:field="*{id}" type="hidden" class="form-control">
+                <div class="form-group row">
+                    <label for="firstName" class="col-sm-12 col-form-label">First Name</label>
+                    <div class="col-sm-12">
+                        <input th:field="*{firstName}" type="text" class="form-control" id="firstName" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="lastName" class="col-sm-12 col-form-label">Last Name</label>
+                    <div class="col-sm-12">
+                        <input th:field="*{lastName}" type="text" class="form-control" id="lastName">
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <label for="email" class="col-sm-12 col-form-label">Employee ID</label>
+                    <div class="col-sm-12">
+                        <input type="text" th:field="*{employeeId}" class="form-control" id="email" required>
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <label for="designation" class="col-sm-12 col-form-label">Designation</label>
+                    <div class="col-sm-12">
+                        <input type="text" th:field="*{designation}" class="form-control" id="designation" required>
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <label for="teamId" class="col-sm-12 col-form-label">Team</label>
+                    <div class="col-sm-12" >
+                        <select class="form-control" th:field="*{team.id}" id="teamId">
+                            <option value="-1">--Select--</option>
+
+                            <option
+                                    th:each="team: ${teams}"
+                                    th:value="${team.id}"
+                                    th:text="${team.teamName}" ></option>
+                        </select>
+
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+
+
+
+            </form>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
+
+<script>
+    function validate() {
+
+        return true;
+    }
+
+</script>
