@@ -1,0 +1,80 @@
+<!--/*@thymesVar id="activityList" type="java"*/-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="en"
+      layout:decorate="~{user/layout/main}">
+
+<body>
+<div layout:fragment="content">
+
+    <div style="margin-top: 20px;">
+        <table id="activityListTable" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>EmployeeID</th>
+                <th>Name</th>
+                <th>Branch</th>
+                <th>No Of Achievements</th>
+                <th>Achievement Amount</th>
+                <th>Total Achievement</th>
+                <th>Entry Date</th>
+                <th>Operation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="activityRow" th:each="activity : ${activityList}">
+                <td class="employeeId" th:text="${activity.employee.employeeId}"></td>
+                <td th:text="${activity.employee.firstName +' '+ activity.employee.lastName}"></td>
+                <td th:text="${activity.branch}">${activity.id}</td>
+                <td th:text="${activity.noOfAchievements}"></td>
+                <td th:text="${activity.achievementAmount}"></td>
+                <td th:text="${activity.totalAchievement}"></td>
+                <td th:text="02-02-2020"></td>
+                <td>
+                    <button type="button" id="editButton" th:onclick="|edit( '${activity.id}' )|"  class="btn btn-info btn-sm">Edit</button>
+                    <button type="button" th:data-employee="|${activity.employee.employeeId}|"  id="createButton" th:nclick="|createNew( 'data-employee' )|" class="btn btn-info btn-sm">New</button>
+                </td>
+            </tr>
+
+        </tbody>
+        </table>
+
+        <script th:inline="javascript">
+
+            function edit(id) {
+                location.href= '/activity/create?id='+id;
+            }
+
+            function createNew(employeeId) {
+                location.href= '/activity/create?employeeId='+employeeId;
+            }
+
+            $(document).ready(function () {
+            $('#activityListTable').dataTable( {
+                "columns": [
+                    null,
+                    { "width": "20%" },
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    { "width": "15%" },
+                ]
+            } );
+
+
+        });
+
+
+        </script>
+    </div>
+
+</div>
+
+
+</body>
+
+
+</html>

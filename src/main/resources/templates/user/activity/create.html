@@ -7,35 +7,7 @@
       lang="en"
       layout:decorate="~{user/layout/main}">
 <body>
-@Column(name = "branch")
-private String branch;
 
-@Column(name = "no_of_achievements")
-private Integer noOfAchievement;
-
-@Column(name = "achievement_amount")
-private Double achievementAmount;
-
-@Column(name = "referral_id")
-private String referralId;
-
-@ManyToOne(fetch = FetchType.EAGER)
-@JoinColumn(name = "employee_id", referencedColumnName = "id", nullable = true)
-private Employee employee;
-
-
-@ManyToOne(fetch = FetchType.EAGER)
-@JoinColumn(name = "activity_type_id", referencedColumnName = "id", nullable = true)
-private ActivityType activityType;
-
-
-@ManyToOne(fetch = FetchType.EAGER)
-@JoinColumn(name = "loan_type_id", referencedColumnName = "id", nullable = true)
-private LoanType loanType;
-
-@ManyToOne(fetch = FetchType.EAGER)
-@JoinColumn(name = "sales_type_id", referencedColumnName = "id", nullable = true)
-private SalesType salesType;
 <div layout:fragment="content">
 
     <div class="row" style="margin: 10px;">
@@ -44,81 +16,92 @@ private SalesType salesType;
             <h4 class="text-center">Add/Edit Activity</h4>
 
             <form class="col-md-12" onsubmit="return validate()" th:action="@{/activity/create}" th:object="${activity}" method="post">
-                <input th:field="*{id}" type="hidden" class="form-control">
+                <input th:field="*{id}" type="hidden" class="form-control form-control-sm">
+
                 <div class="form-group row">
-                    <label for="branch" class="col-sm-12 col-form-label">First Name</label>
+                    <label for="branch" class="col-sm-12 col-form-label">Branch</label>
                     <div class="col-sm-12">
-                        <input th:field="*{branch}" type="text" class="form-control" id="branch" value="Motijhil Branch" readonly>
+                        <input th:field="*{branch}" type="text" class="form-control" id="branch" required>
                     </div>
                 </div>
+
 
                 <div class="form-group row">
                     <label for="employeeId" class="col-sm-12 col-form-label">Employee ID</label>
                     <div class="col-sm-12" >
-                        <select class="form-control" th:field="*{employee.id}" id="employeeId">
+                        <select class="form-control form-control-sm" th:field="*{employee.id}" id="employeeId">
                             <option value="-1">--Select--</option>
                             <option
                                     th:each="employee: ${employees}"
                                     th:value="${employee.id}"
-                                    th:text="${employee.employee_id}" ></option>
+                                    th:text="${employee.employeeId}" ></option>
                         </select>
 
                     </div>
                 </div>
 
+
                 <div class="form-group row">
-                    <label for="noOfAchievementId" class="col-sm-12 col-form-label">No Of Achievement</label>
+                    <label for="salesTypeId" class="col-sm-12 col-form-label">Sales Type</label>
+                    <div class="col-sm-12" >
+                        <select class="form-control form-control-sm" th:field="*{salesType.id}" id="salesTypeId">
+                            <option value="-1">--Select--</option>
+
+                            <option
+                                    th:each="salesType: ${salesTypes}"
+                                    th:value="${salesType.id}"
+                                    th:text="${salesType.type}" ></option>
+                        </select>
+
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <label for="loanTypeId" class="col-sm-12 col-form-label">Loan Type</label>
+                    <div class="col-sm-12" >
+                        <select class="form-control form-control-sm" th:field="*{loanType.id}" id="loanTypeId">
+                            <option value="-1">--Select--</option>
+
+                            <option
+                                    th:each="loanType: ${loanTypes}"
+                                    th:value="${loanType.id}"
+                                    th:text="${loanType.type}" ></option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <label for="noOfAchievementsId" class="col-sm-12 col-form-label">No Of Achievement</label>
                     <div class="col-sm-12">
-                        <input th:field="*{noOfAchievement}" type="text" class="form-control" id="noOfAchievementId" >
+                        <input th:field="*{noOfAchievements}" type="text" class="form-control form-control-sm" id="noOfAchievementsId" >
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="achievementAmount" class="col-sm-12 col-form-label">Achievement Amount</label>
                     <div class="col-sm-12">
-                        <input th:field="*{achievementAmount}" type="text" class="form-control" id="achievementAmount">
+                        <input th:field="*{achievementAmount}" type="text" class="form-control  form-control-sm" id="achievementAmount">
                     </div>
                 </div>
 
-
                 <div class="form-group row">
-                    <label for="totalAchievementAmount" class="col-sm-12 col-form-label">Total Achievement</label>
+                    <label for="referralId" class="col-sm-12 col-form-label">Referral ID</label>
                     <div class="col-sm-12">
-                        <input th:field="*{totalAchievementAmount}" type="text" class="form-control" id="totalAchievementAmount">
+                        <input th:field="*{referralId}" type="text" class="form-control  form-control-sm" id="referralId">
                     </div>
                 </div>
 
 
                 <div class="form-group row">
-                    <label for="employeeId" class="col-sm-12 col-form-label">Employee ID</label>
+                    <label for="totalAchievement" class="col-sm-12 col-form-label">Total Achievement</label>
                     <div class="col-sm-12">
-                        <input type="text" th:field="*{employeeId}" class="form-control" id="employeeId" required>
+                        <input th:field="*{totalAchievement}" type="text" class="form-control  form-control-sm" id="totalAchievement" readonly>
                     </div>
                 </div>
 
 
-                <div class="form-group row">
-                    <label for="designation" class="col-sm-12 col-form-label">Designation</label>
-                    <div class="col-sm-12">
-                        <input type="text" th:field="*{designation}" class="form-control" id="designation" required>
-                    </div>
-                </div>
-
-
-                <div class="form-group row">
-                    <label for="teamId" class="col-sm-12 col-form-label">Team</label>
-                    <div class="col-sm-12" >
-                        <select class="form-control" th:field="*{team.id}" id="teamId">
-                            <option value="-1">--Select--</option>
-
-                            <option
-                                    th:each="team: ${teams}"
-                                    th:value="${team.id}"
-                                    th:text="${team.teamName}" ></option>
-                        </select>
-
-                    </div>
-                </div>
 
                 <div class="form-group row">
                     <div class="col-sm-10">
@@ -129,7 +112,7 @@ private SalesType salesType;
                 <div th:unless="${#request.getParameter('success') == null}">
                     <div class="form-group row">
                         <div class="col-sm-10">
-                            <span style="color: green"> Employee is saved successfully!! </span>
+                            <span style="color: green"> Activity is saved successfully!! </span>
                         </div>
                     </div>
                 </div>
@@ -148,5 +131,9 @@ private SalesType salesType;
 
         return true;
     }
+    $(function() {
+
+
+    });
 
 </script>

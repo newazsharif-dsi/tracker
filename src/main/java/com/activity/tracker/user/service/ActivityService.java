@@ -19,6 +19,10 @@ public class ActivityService {
         return activityDao.getActivityByEmployee(employee);
     }
 
+    public List<Activity> getAll() {
+        return activityDao.getAll();
+    }
+
     public void save(Activity activity) {
         activityDao.saveOrUpdate(activity);
     }

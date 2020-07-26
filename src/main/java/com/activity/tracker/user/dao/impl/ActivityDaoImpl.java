@@ -39,29 +39,28 @@ public class ActivityDaoImpl implements ActivityDao {
         return entityManager.find(Activity.class, id);
     }
 
-
     @Override
-    public void save(Employee employee) {
-        getCurrentSession().save(employee);
-    }
-
-
-    @Override
-    public void saveOrUpdate(Employee employee) {
-        getCurrentSession().saveOrUpdate(employee);
-        getCurrentSession().flush();
-    }
-
-
-    @Override
-    public void update(Employee employee) {
-        getCurrentSession().update(employee);
+    public void update(Activity activity) {
+        getCurrentSession().update(activity);
         getCurrentSession().flush();
     }
 
     @Override
-    public void delete(Employee employee) {
-        getCurrentSession().delete(employee);
+    public void save(Activity activity) {
+        getCurrentSession().save(activity);
     }
+
+    @Override
+    public void saveOrUpdate(Activity activity) {
+        getCurrentSession().saveOrUpdate(activity);
+        getCurrentSession().flush();
+    }
+
+    @Override
+    public void delete(Activity activity) {
+        getCurrentSession().delete(activity);
+    }
+
+
 
 }

@@ -15,7 +15,7 @@ public class Activity implements Serializable{
     private String branch;
 
     @Column(name = "no_of_achievements")
-    private Integer noOfAchievement;
+    private Integer noOfAchievements;
 
     @Column(name = "achievement_amount")
     private Double achievementAmount;
@@ -60,12 +60,12 @@ public class Activity implements Serializable{
         this.branch = branch;
     }
 
-    public Integer getNoOfAchievement() {
-        return noOfAchievement;
+    public Integer getNoOfAchievements() {
+        return noOfAchievements;
     }
 
-    public void setNoOfAchievement(Integer noOfAchievement) {
-        this.noOfAchievement = noOfAchievement;
+    public void setNoOfAchievements(Integer noOfAchievements) {
+        this.noOfAchievements = noOfAchievements;
     }
 
     public Double getAchievementAmount() {
