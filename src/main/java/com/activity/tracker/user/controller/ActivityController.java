@@ -24,36 +24,29 @@ public class ActivityController extends BaseController {
     ActivityService activityService;
 
     @Autowired
-    ActivityTypeService activityTypeService;
+    ProductTypeService productTypeService;
 
-    @Autowired
-    SalesTypeService salesTypeService;
-
-    @Autowired
-    LoanTypeService loanTypeService;
 
     @GetMapping("/activity/create")
     public String getCreate(ModelMap model, @RequestParam(value = "id", required = false) Integer id,
                             @RequestParam(value = "employeeId", required = false) Integer employeeId,
                             @RequestParam(value = "error", required = false) String error,
                             @RequestParam(value = "success", required = false) String success) {
-        Employee employee = new Employee();
         Activity activity = new Activity();
 
         //TODO:: Have questions which type should be here
 
         if (employeeId != null) {
-            employee = employeeService.findById(employeeId);
+            Employee employee = employeeService.findById(employeeId);
+            activity.setEmployee(employee);
         }
         if (id != null) {
             activity = activityService.findById(id);
         }
 
+
         model.addAttribute("activity", activity);
-        model.addAttribute("activityTypes", activityTypeService.getAll());
-        model.addAttribute("salesTypes", salesTypeService.getAll());
-        model.addAttribute("loanTypes", loanTypeService.getAll());
-        model.addAttribute("employee", employee);
+        model.addAttribute("productTypes", productTypeService.getAll());
         model.addAttribute("employees", employeeService.getAll());
 
         return route(model, "user/activity/create");
@@ -65,7 +58,6 @@ public class ActivityController extends BaseController {
             //TODO:: need validation
             activity.setTotalAchievement(activity.getNoOfAchievements() * activity.getAchievementAmount());
             activityService.save(activity);
-            ModelMap model = new ModelMap();
 
         } catch (Exception ex) {
             return "redirect:/activity/create?error=true";

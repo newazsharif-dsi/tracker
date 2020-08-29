@@ -14,6 +14,8 @@ public class ProductType implements Serializable{
     @Column(name = "type")
     private String type;
 
+    @Column(name = "has_amount")
+    private Boolean hasAmount;
 
     public int getId() {
         return id;
@@ -29,6 +31,14 @@ public class ProductType implements Serializable{
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public Boolean getHasAmount() {
+        return hasAmount;
+    }
+
+    public void setHasAmount(Boolean hasAmount) {
+        this.hasAmount = hasAmount;
     }
 }
 

@@ -1,0 +1,114 @@
+<!--/*@thymesVar id="teams" type="java"*/-->
+<!--/*@thymesVar id="employees" type="java"*/-->
+<!--/*@thymesVar id="target" type="java"*/-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="en"
+      layout:decorate="~{user/layout/main}">
+<body>
+<div layout:fragment="content">
+
+    <div class="row" style="margin: 10px;">
+
+        <div class=" box-size box-border-custom col-md-6 col-sm-6">
+            <h4 class="text-center"  th:text="${target.id == null} ? 'Set Target' : 'Update Target'" />
+
+            <form class="col-md-12" onsubmit="return validate()" th:action="@{/target/create}" th:object="${target}" method="post">
+                <input th:field="*{id}" type="hidden" class="form-control">
+
+
+                <div class="form-group row">
+                    <label for="employeeId" class="col-sm-12 col-form-label">Employee ID </label>
+                    <div class="col-sm-12" >
+                        <select class="form-control form-control-sm" th:field="*{employee.id}" id="employeeId">
+                            <option value="-1">--Select--</option>
+                            <option
+                                    th:each="employee: ${employees}"
+                                    th:value="${employee.id}"
+                                    th:selected="${target.employee.id == employee.id}"
+                                    th:text="${employee.employeeId}" >
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="noOfTargets" class="col-sm-12 col-form-label">Number of Targets</label>
+                    <div class="col-sm-12">
+                        <input th:field="*{noOfTargets}" type="text" class="form-control" id="noOfTargets">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="targetAmount" class="col-sm-12 col-form-label">Target Amount</label>
+                    <div class="col-sm-12">
+                        <input th:field="*{targetAmount}" type="text" class="form-control" id="targetAmount">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="targetDate" class="col-sm-12 col-form-label">Target Date</label>
+                    <div class="col-sm-12">
+                        <input th:field="*{targetDate}" type="text" class="form-control" id="targetDate" required>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="startDate" class="col-sm-12 col-form-label">Start Date</label>
+                    <div class="col-sm-12">
+                        <input th:field="*{startDate}" type="text" class="form-control" id="startDate" readonly>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="endDate" class="col-sm-12 col-form-label">End Date</label>
+                    <div class="col-sm-12">
+                        <input th:field="*{endDate}" type="text" class="form-control" id="endDate" readonly>
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+
+
+
+                <div th:unless="${#request.getParameter('success') == null}">
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <span style="color: green"> Target is saved successfully!! </span>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </form>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
+
+<script>
+    function validate() {
+
+        return true;
+    }
+    $('#targetDate').datepicker( {
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+        dateFormat: 'MM yy',
+        onClose: function(dateText, inst) {
+            $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+
+        }
+    });
+
+</script>

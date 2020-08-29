@@ -27,50 +27,42 @@
 
 
                 <div class="form-group row">
-                    <label for="employeeId" class="col-sm-12 col-form-label">Employee ID</label>
+                    <label for="employeeId" class="col-sm-12 col-form-label">Employee ID </label>
                     <div class="col-sm-12" >
                         <select class="form-control form-control-sm" th:field="*{employee.id}" id="employeeId">
                             <option value="-1">--Select--</option>
                             <option
                                     th:each="employee: ${employees}"
                                     th:value="${employee.id}"
-                                    th:text="${employee.employeeId}" ></option>
+                                    th:selected="${activity.employee.id == employee.id}"
+                                    th:text="${employee.employeeId}" >
+                            </option>
                         </select>
-
                     </div>
                 </div>
 
 
                 <div class="form-group row">
-                    <label for="salesTypeId" class="col-sm-12 col-form-label">Sales Type</label>
+                    <label for="productTypeId" class="col-sm-12 col-form-label">Product Type</label>
                     <div class="col-sm-12" >
-                        <select class="form-control form-control-sm" th:field="*{salesType.id}" id="salesTypeId">
+                        <select class="form-control form-control-sm" th:field="*{productType.id}" id="productTypeId">
                             <option value="-1">--Select--</option>
 
                             <option
-                                    th:each="salesType: ${salesTypes}"
-                                    th:value="${salesType.id}"
-                                    th:text="${salesType.type}" ></option>
+                                    th:each="productType: ${productTypes}"
+                                    th:value="${productType.id}"
+                                    th:text="${productType.type}" ></option>
                         </select>
 
                     </div>
                 </div>
-
 
                 <div class="form-group row">
-                    <label for="loanTypeId" class="col-sm-12 col-form-label">Loan Type</label>
-                    <div class="col-sm-12" >
-                        <select class="form-control form-control-sm" th:field="*{loanType.id}" id="loanTypeId">
-                            <option value="-1">--Select--</option>
-
-                            <option
-                                    th:each="loanType: ${loanTypes}"
-                                    th:value="${loanType.id}"
-                                    th:text="${loanType.type}" ></option>
-                        </select>
+                    <label for="activityDateId" class="col-sm-12 col-form-label">Activity Date</label>
+                    <div class="col-sm-12">
+                        <input th:field="*{activityDate}" type="text" class="form-control form-control-sm" id="activityDateId" >
                     </div>
                 </div>
-
 
                 <div class="form-group row">
                     <label for="noOfAchievementsId" class="col-sm-12 col-form-label">No Of Achievement</label>
@@ -121,19 +113,26 @@
         </div>
 
     </div>
+
+    <script th:inline="javascript">
+        function validate() {
+
+            return true;
+        }
+
+
+
+        $(document).ready(function () {
+            $('#activityDateId').datepicker({
+                dateFormat: "dd/mm/yy"
+
+            });
+
+        });
+
+    </script>
 </div>
 
 </body>
+
 </html>
-
-<script>
-    function validate() {
-
-        return true;
-    }
-    $(function() {
-
-
-    });
-
-</script>
